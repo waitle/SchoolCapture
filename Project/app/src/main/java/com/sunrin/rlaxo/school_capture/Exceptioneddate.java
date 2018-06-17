@@ -49,4 +49,5 @@ public class Exceptioneddate extends AppCompatActivity {
             list.setAdapter(dbAdapter);
         }
     }
+    
 }

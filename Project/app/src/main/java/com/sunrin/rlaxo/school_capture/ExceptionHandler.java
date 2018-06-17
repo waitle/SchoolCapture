@@ -114,29 +114,22 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
             startdate = dateTOint(start.getText().toString());
             enddate = dateTOint(end.getText().toString());
 
-            boolean datecount = exceptionDB.overlap(startdate, enddate);
             String insertdate = "not cleared";
-            if (datecount) {//이미 단축수업 처리된 날짜가 있을경우
-                if (startdate == enddate) {
-                    exceptionDB.update(startdate, classcount, classtime, start.getText().toString());
-                } else {
-                    for (int i = startdate; i <= enddate; i++) {
-                        insertdate = intTOstring(i);
-                        exceptionDB.update(i, classcount, classtime, insertdate);
-                    }
-                }
-            } else if (!datecount) {//처음 단축수업을 처리하는경우
-                if (startdate == enddate) {
-                    insertdate = intTOstring(startdate);
-                    exceptionDB.insert(startdate, classcount, classtime, insertdate);
-                } else {
-                    for (int i = startdate; i <= enddate; i++) {
-                        insertdate = intTOstring(i);
-                        exceptionDB.insert(i, classcount, classtime, insertdate);
-                    }
-                }
+            int i = startdate;
+            boolean check;
+            do{
+                check = exceptionDB.overlap(i);
+                insertdate = intTOstring(i);
+                if(!check)
+                    exceptionDB.insert(i, classcount, classtime, insertdate);
 
-            }
+                else if(check)
+                    exceptionDB.update(i, classcount, classtime, insertdate);
+
+                i+=1;
+
+            }while(i<=enddate+1);
+
             Toast.makeText(this, "Exception updated", Toast.LENGTH_SHORT).show();
             finish();
         }
@@ -155,7 +148,7 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
     public int dateTOint(int y, int m, int d)//입력된 날짜를 일수로 변환
     {
         int idate, upcount = 0;
-        for (int i = 0; i < y; i++) {
+        for (int i = 1; i < y; i++) {
             if ((0 == (i % 4) && 0 != (i % 100)) || 0 == i % 400)
                 upcount++;
         }
@@ -212,8 +205,8 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
 
         int defind = 0;
         for (int i = 0; i <= 11; i++) {
-            if (date < 31) {
-                m = Integer.toString(1);
+            if (date <= 31) {
+                m = Integer.toString(0);
                 break;
             }
             if (i == 1) {
@@ -232,47 +225,40 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
                     date -= 28;
                     defind = 31;
                 }
-
             } else if (i == 3) {
                 date -= 31;
                 defind = 30;
-
             } else if (i == 4) {
                 date -= 30;
                 defind = 31;
-
             } else if (i == 5) {
                 date -= 31;
                 defind = 30;
-
             } else if (i == 6) {
                 date -= 30;
                 defind = 31;
-
             } else if (i == 7) {
                 date -= 31;
                 defind = 31;
-
             } else if (i == 8) {
                 date -= 31;
                 defind = 30;
-
             } else if (i == 9) {
                 date -= 30;
                 defind = 31;
-
             } else if (i == 10) {
-                date -= 30;
-                defind = 31;
-
+                date -= 31;
+                defind = 30;
             } else if (i == 11) {
                 date -= 30;
                 defind = 31;
-
             }
             if (date <= defind) {
                 m = Integer.toString(i);
-                d = Integer.toString(date-1);
+                if(date==1)
+                    d="1";
+                else
+                    d = Integer.toString(date-1);
                 break;
             }
         }

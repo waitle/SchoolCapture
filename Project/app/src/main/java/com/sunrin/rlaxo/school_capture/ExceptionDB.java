@@ -76,12 +76,12 @@ public class ExceptionDB extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
-    public boolean overlap(int startdate, int enddate) {
+    public boolean overlap(int startdate) {
         SQLiteDatabase db = getWritableDatabase();
         Cursor c1 = db.rawQuery("select date from EXCEPTIONDATE", null);
         c1.moveToFirst();
         for (int k = 0; k < c1.getCount(); k++) {
-            if (c1.getInt(0) == startdate || c1.getInt(0) == enddate || (c1.getInt(0) >= startdate && c1.getInt(0) <= enddate)) {
+            if (c1.getInt(c1.getColumnIndex("date")) == startdate) {
                 return true;
             }
             c1.moveToNext();
