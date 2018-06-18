@@ -125,10 +125,8 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
 
                 else if(check)
                     exceptionDB.update(i, classcount, classtime, insertdate);
-
                 i+=1;
-
-            }while(i<=enddate+1);
+            }while(i<=enddate);
 
             Toast.makeText(this, "Exception updated", Toast.LENGTH_SHORT).show();
             finish();
@@ -255,10 +253,7 @@ public class ExceptionHandler extends AppCompatActivity implements View.OnClickL
             }
             if (date <= defind) {
                 m = Integer.toString(i);
-                if(date==1)
-                    d="1";
-                else
-                    d = Integer.toString(date-1);
+                d = Integer.toString(date);
                 break;
             }
         }

@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-public class DatelistAdapter extends CursorAdapter {
+public class DatelistAdapter extends CursorAdapter implements View.OnClickListener{
     public DatelistAdapter(Context context, Cursor c) {
         super(context, c);
     }
@@ -29,6 +29,7 @@ public class DatelistAdapter extends CursorAdapter {
 
     }
 
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -36,4 +37,8 @@ public class DatelistAdapter extends CursorAdapter {
         return v;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

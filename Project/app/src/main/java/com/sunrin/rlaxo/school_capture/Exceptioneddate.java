@@ -17,6 +17,7 @@ public class Exceptioneddate extends AppCompatActivity {
     SQLiteDatabase db;
     String sql;
     Cursor cursor;
+    DatelistAdapter dbAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +32,28 @@ public class Exceptioneddate extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 cursor.moveToPosition(position);
-                String str = cursor.getString(cursor.getColumnIndex("name"));
+                String str = cursor.getString(cursor.getColumnIndex("dates"));
                 Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
+                ExceptionDB exceptionDB = new ExceptionDB(getApplicationContext());
+                exceptionDB.delete(cursor.getInt(cursor.getColumnIndex("date")));
+                cursor.
+                refresh();
             }
         });
-
-
     }
+
+    private void refresh()
+    {
+        dbAdapter.notifyDataSetChanged();
+    }
+
     private void selectDB(){
         db = exceptionDB.getWritableDatabase();
         sql = "SELECT * FROM EXCEPTIONDATE;";
 
         cursor = db.rawQuery(sql, null);
         if(cursor.getCount() > 0){
-            startManagingCursor(cursor);
-            DatelistAdapter dbAdapter = new DatelistAdapter(this, cursor);
+            dbAdapter = new DatelistAdapter(this, cursor);
             list.setAdapter(dbAdapter);
         }
     }
