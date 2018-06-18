@@ -124,6 +124,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //시간표DB에 과목입력
         //해당 버튼에
         Button tempo = findViewById(v.getId());
-        Toast.makeText(this, Integer.toString(tempo.getId()), Toast.LENGTH_SHORT).show();
     }
 }

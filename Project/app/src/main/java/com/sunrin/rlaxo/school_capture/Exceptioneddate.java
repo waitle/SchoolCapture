@@ -32,11 +32,9 @@ public class Exceptioneddate extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 cursor.moveToPosition(position);
-                String str = cursor.getString(cursor.getColumnIndex("dates"));
-                Toast.makeText(getApplicationContext(), str, Toast.LENGTH_SHORT).show();
                 ExceptionDB exceptionDB = new ExceptionDB(getApplicationContext());
                 exceptionDB.delete(cursor.getInt(cursor.getColumnIndex("date")));
-                cursor.
+                selectDB();
                 refresh();
             }
         });
@@ -52,7 +50,7 @@ public class Exceptioneddate extends AppCompatActivity {
         sql = "SELECT * FROM EXCEPTIONDATE;";
 
         cursor = db.rawQuery(sql, null);
-        if(cursor.getCount() > 0){
+        if(cursor.getCount() >= 0){
             dbAdapter = new DatelistAdapter(this, cursor);
             list.setAdapter(dbAdapter);
         }
