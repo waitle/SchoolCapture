@@ -8,7 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button timetableinput[][] = new Button[9][6];
@@ -118,11 +118,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        Button tempo = findViewById(v.getId());
+        SubjectDB subjectDB = new SubjectDB(this);
+        String subjectline = subjectDB.getsubjectname();
+        final String subjectlist [] = subjectline.split("\n");
+        PopupMenu p = new PopupMenu(this , v);
+        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                for(int i=0;i<=subjectlist.length;i++)
+                {
+                    //아이템추가
+
+                }
+
+
+                return false;
+            }
+        });
         //리스트어댑터에 과목DB반영
         //다이얼로그에 리스트어댑터호출
         //다이얼로그 활성화
         //시간표DB에 과목입력
         //해당 버튼에
-        Button tempo = findViewById(v.getId());
+
     }
 }
