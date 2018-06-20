@@ -18,7 +18,7 @@ public class SubjectDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE IF NOT EXISTS SUBJECT (_id INTEGER PRIMARY KEY AUTOINCREMENT, name text not null unique, teacher text, laocation text, email text);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS SUBJECT (_id INTEGER PRIMARY KEY AUTOINCREMENT, name text not null unique, teacher text, location text, email text);");
     }
 
     @Override

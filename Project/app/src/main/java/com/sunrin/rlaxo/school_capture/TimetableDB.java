@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class TimetableDB extends SQLiteOpenHelper {
-    public TimetableDB(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public TimetableDB(Context context) {
         super(context, name, factory, version);
     }
 

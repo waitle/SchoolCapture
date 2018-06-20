@@ -10,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
      Button timetableinput[][] = new Button[9][6];
-
+     int idval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,29 +121,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Button tempo = findViewById(v.getId());
+
+        idval = v.getId();
         SubjectDB subjectDB = new SubjectDB(this);
+        subjectDB.update("math", "null", "sunrin", "rlamxjoir@mgial");
         String subjectline = subjectDB.getsubjectname();
         final String subjectlist [] = subjectline.split("\n");
-        PopupMenu p = new PopupMenu(this , v);
-        @SuppressLint("ResourceType") Menu menu = findViewById(R.menu.select_subject_menu);
-        for(int i=0;i<=subjectlist.length;i++)
+        PopupMenu menu = new PopupMenu(this, v);
+        for(int i=1;i<=subjectlist.length;i++)
         {
             //아이템추가
-            menu.add(0,i,i, subjectlist[i]);
+            menu.getMenu().add(0,i,i, subjectlist[i-1]);
         }
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.select_subject_menu, menu);
-
-
-        p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+        menu.show();
+        menu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
+                String subject = item.getTitle().toString();
+                for(int i=1;i<=8;i++)
+                {
+                    for(int j=1;j<=5;j++)
+                    {
+                        if(timetableinput[i][j].getId()==idval)
+                        {
+                            timetableinput[i][j].setText(subject);
+                            TimetableDB timetableDB = new TimetableDB(getApplicationContext());
 
+                        }
+                    }
+                }
                 return false;
             }
         });
+
         //리스트어댑터에 과목DB반영
         //다이얼로그에 리스트어댑터호출
         //다이얼로그 활성화
@@ -149,4 +161,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //해당 버튼에
 
     }
+
 }
