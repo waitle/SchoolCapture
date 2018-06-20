@@ -1,5 +1,6 @@
 package com.sunrin.rlaxo.school_capture;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +12,7 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button timetableinput[][] = new Button[9][6];
+     Button timetableinput[][] = new Button[9][6];
 
 
     @Override
@@ -123,15 +124,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String subjectline = subjectDB.getsubjectname();
         final String subjectlist [] = subjectline.split("\n");
         PopupMenu p = new PopupMenu(this , v);
+        @SuppressLint("ResourceType") Menu menu = findViewById(R.menu.select_subject_menu);
+        for(int i=0;i<=subjectlist.length;i++)
+        {
+            //아이템추가
+            menu.add(0,i,i, subjectlist[i]);
+        }
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.select_subject_menu, menu);
+
+
         p.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                for(int i=0;i<=subjectlist.length;i++)
-                {
-                    //아이템추가
-
-                }
-
 
                 return false;
             }
