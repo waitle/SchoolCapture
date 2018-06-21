@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class TimetableDB extends SQLiteOpenHelper {
     public TimetableDB(Context context) {
-        super(context, name, factory, version);
+        super(context, "timetalbe_table", null, 1);
     }
 
     @Override

@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         {
                             timetableinput[i][j].setText(subject);
                             TimetableDB timetableDB = new TimetableDB(getApplicationContext());
+                            //시간표DB에 값 저장
 
                         }
                     }
@@ -153,12 +154,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return false;
             }
         });
-
-        //리스트어댑터에 과목DB반영
-        //다이얼로그에 리스트어댑터호출
-        //다이얼로그 활성화
-        //시간표DB에 과목입력
-        //해당 버튼에
 
     }
 
